@@ -1,5 +1,5 @@
 {
-  description = "Pure Haskell base64 encoding and decoding on bytestrings.";
+  description = "Fast Haskell base64 encoding and decoding on bytestrings.";
 
   inputs = {
     ppad-nixpkgs = {

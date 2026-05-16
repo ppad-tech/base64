@@ -1,7 +1,7 @@
 cabal-version:      3.0
 name:               ppad-base64
 version:            0.1.0
-synopsis:           Pure base64 encoding and decoding on bytestrings.
+synopsis:           Fast base64 encoding and decoding on bytestrings.
 license:            MIT
 license-file:       LICENSE
 author:             Jared Tobin
@@ -11,10 +11,15 @@ build-type:         Simple
 tested-with:        GHC == { 9.10.3 }
 extra-doc-files:    CHANGELOG
 description:
-  Pure base64 encoding and decoding on bytestrings.
+  Fast base64 encoding and decoding on bytestrings.
 
 flag llvm
   description: Use GHC's LLVM backend.
+  default:     False
+  manual:      True
+
+flag sanitize
+  description: Build with AddressSanitizer and UndefinedBehaviorSanitizer.
   default:     False
   manual:      True
 
@@ -31,9 +36,17 @@ library
     ghc-options: -fllvm -O2
   exposed-modules:
       Data.ByteString.Base64
+      Data.ByteString.Base64.Arm
   build-depends:
       base >= 4.9 && < 5
     , bytestring >= 0.9 && < 0.13
+  c-sources:
+      cbits/base64_arm.c
+  if arch(aarch64)
+    cc-options: -march=armv8-a
+  if flag(sanitize)
+    cc-options: -fsanitize=address,undefined -fno-omit-frame-pointer
+    ghc-options: -optl=-fsanitize=address,undefined
 
 test-suite base64-tests
   type:                exitcode-stdio-1.0
@@ -43,6 +56,8 @@ test-suite base64-tests
 
   ghc-options:
     -rtsopts -Wall -O2
+  if flag(sanitize)
+    ghc-options: -optl=-fsanitize=address,undefined
 
   build-depends:
       base

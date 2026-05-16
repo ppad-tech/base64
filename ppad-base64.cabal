@@ -1,7 +1,7 @@
 cabal-version:      3.0
 name:               ppad-base64
 version:            0.1.0
-synopsis:           Pure base64 encoding and decoding on bytestrings.
+synopsis:           Fast base64 encoding and decoding on bytestrings.
 license:            MIT
 license-file:       LICENSE
 author:             Jared Tobin
@@ -11,7 +11,7 @@ build-type:         Simple
 tested-with:        GHC == { 9.10.3 }
 extra-doc-files:    CHANGELOG
 description:
-  Pure base64 encoding and decoding on bytestrings.
+  Fast base64 encoding and decoding on bytestrings.
 
 flag llvm
   description: Use GHC's LLVM backend.

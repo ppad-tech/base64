@@ -35,8 +35,23 @@ The aim is best-in-class performance for pure, highly-auditable Haskell
 code. We could go slightly faster by using direct allocation and writes,
 but we get pretty close to the best impure versions with only builders.
 
-Benchmark figures will be added after running the suite on the standard
-VPS (use `cabal bench` to run the benchmark suite).
+Current benchmark figures on a 1024-byte input on an Apple M4 MacBook Air,
+GHC 9.10.3 with the LLVM backend, look like (use `cabal bench` to run the
+benchmark suite):
+
+```
+  benchmarking ppad-base64/encode
+  time                 2.279 μs   (2.253 μs .. 2.316 μs)
+                       0.999 R²   (0.998 R² .. 1.000 R²)
+  mean                 2.284 μs   (2.270 μs .. 2.308 μs)
+  std dev              74.77 ns   (50.21 ns .. 124.4 ns)
+
+  benchmarking ppad-base64/decode
+  time                 649.2 ns   (637.2 ns .. 659.0 ns)
+                       0.998 R²   (0.997 R² .. 0.999 R²)
+  mean                 618.5 ns   (611.8 ns .. 625.5 ns)
+  std dev              29.46 ns   (25.76 ns .. 35.06 ns)
+```
 
 ## Security
 

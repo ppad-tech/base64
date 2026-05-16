@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/license-MIT-brightgreen)
 [![](https://img.shields.io/badge/haddock-base64-lightblue)](https://docs.ppad.tech/base64)
 
-Pure base64 encoding & decoding on strict ByteStrings.
+Fast base64 encoding & decoding on strict ByteStrings.
 
 ## Usage
 
@@ -31,27 +31,26 @@ Haddocks (API documentation, etc.) are hosted at
 
 ## Performance
 
-The aim is best-in-class performance for pure, highly-auditable Haskell
-code. We could go slightly faster by using direct allocation and writes,
-but we get pretty close to the best impure versions with only builders.
-
-Current benchmark figures on a 1024-byte input on an Apple M4 MacBook Air,
-GHC 9.10.3 with the LLVM backend, look like (use `cabal bench` to run the
-benchmark suite):
+The aim is best-in-class performance. Current benchmark figures on 1kb
+inputs on an M4 Silicon MacBook Air, where we avail of hardware
+acceleration via ARM NEON intrinsics, look like (use `cabal bench` to
+run the benchmark suite):
 
 ```
   benchmarking ppad-base64/encode
-  time                 2.279 μs   (2.253 μs .. 2.316 μs)
-                       0.999 R²   (0.998 R² .. 1.000 R²)
-  mean                 2.284 μs   (2.270 μs .. 2.308 μs)
-  std dev              74.77 ns   (50.21 ns .. 124.4 ns)
+  time                 102.0 ns   (101.9 ns .. 102.2 ns)
+                       1.000 R²   (1.000 R² .. 1.000 R²)
+  mean                 102.0 ns   (101.9 ns .. 102.1 ns)
+  std dev              386.6 ps   (313.4 ps .. 521.5 ps)
 
   benchmarking ppad-base64/decode
-  time                 649.2 ns   (637.2 ns .. 659.0 ns)
-                       0.998 R²   (0.997 R² .. 0.999 R²)
-  mean                 618.5 ns   (611.8 ns .. 625.5 ns)
-  std dev              29.46 ns   (25.76 ns .. 35.06 ns)
+  time                 160.3 ns   (160.3 ns .. 160.4 ns)
+                       1.000 R²   (1.000 R² .. 1.000 R²)
+  mean                 160.3 ns   (160.2 ns .. 160.4 ns)
+  std dev              242.8 ps   (201.8 ps .. 301.2 ps)
 ```
+
+You should compile with the 'llvm' flag for maximum performance.
 
 ## Security
 

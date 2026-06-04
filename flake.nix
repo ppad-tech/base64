@@ -18,7 +18,8 @@
 
         pkgs = import nixpkgs { inherit system; };
         hlib = pkgs.haskell.lib;
-        llvm = pkgs.llvmPackages_19.llvm;
+        llvm  = pkgs.llvmPackages_19.llvm;
+        clang = pkgs.llvmPackages_19.clang;
 
         hpkgs = pkgs.haskell.packages.ghc910.extend (new: old: {
           ${lib} = old.callCabal2nixWithOptions lib ./. "--enable-profiling" {};
@@ -40,6 +41,7 @@
               cabal
               cc
               llvm
+              clang
             ];
 
             doBenchmark = true;

@@ -101,6 +101,5 @@ benchmark base64-weigh
     , base64
     , base64-bytestring
     , bytestring
-    , criterion
     , ppad-base64
     , weigh

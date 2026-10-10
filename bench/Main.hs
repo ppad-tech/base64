@@ -15,6 +15,10 @@ main :: IO ()
 main = defaultMain [
     minimal_encode
   , minimal_decode
+  , encode
+  , decode
+  , encode_various
+  , decode_various
   ]
 
 minimal_encode :: Benchmark
@@ -47,7 +51,7 @@ decode = bgroup "decode" [
   ]
 
 decode_various :: Benchmark
-decode_various = bgroup "base64" [
+decode_various = bgroup "decode (input size)" [
     bench "1024B input" $ nf B64.decode (B64.encode (BS.replicate 768 0x00))
   , bench "1028B input" $ nf B64.decode (B64.encode (BS.replicate 771 0x00))
   , bench "1032B input" $ nf B64.decode (B64.encode (BS.replicate 774 0x00))
@@ -59,7 +63,7 @@ decode_various = bgroup "base64" [
   ]
 
 encode_various :: Benchmark
-encode_various = bgroup "base64" [
+encode_various = bgroup "encode (input size)" [
     bench "1024B input" $ nf B64.encode (BS.replicate 1024 0x00)
   , bench "1023B input" $ nf B64.encode (BS.replicate 1023 0x00)
   , bench "1022B input" $ nf B64.encode (BS.replicate 1022 0x00)

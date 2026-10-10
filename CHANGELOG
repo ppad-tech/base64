@@ -1,4 +1,12 @@
 # Changelog
 
+- 0.1.1 (2026-10-10)
+  * The portable implementation now lives in an internal
+    'Data.ByteString.Base64.Pure' module, and
+    'Data.ByteString.Base64.Arm' is no longer exposed. Both are hidden
+    internal modules; the public API is unchanged.
+  * Expands the test suite to exercise both the NEON and portable
+    implementations, including on invalid and non-canonical inputs.
+
 - 0.1.0 (2026-05-16)
   * Initial release, supporting basic encoding/decoding.
